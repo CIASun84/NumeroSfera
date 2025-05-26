@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нумерология: Познай свои числа</title>
+    <style>
+        :root {
+            --primary-color: #12031a;
+            --secondary-color: #2e1642;
+            --light-color: #878688;
+            --dark-color: #2c1a33;
+            --tab-inactive: #413f42;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--tab-inactive);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            margin-right: 0.3rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        form {
+            margin-top: 1.5rem;
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: white;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .number-meaning {
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .num-circle {
+            display: inline-block;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            line-height: 2.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f2ff;
+        }
+
+        .compatibility-table {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .compatibility-level {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .compatibility-bar {
+            height: 1rem;
+            background-color: #ddd;
+            border-radius: 10px;
+            width: 200px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .compatibility-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background-color: var(--dark-color);
+            color: white;
+        }
+        .site-logo {
+            height: 150px;
+            width: 250px;
+            margin-right: 320px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: left; /* выравнивание вправо */
+            align-items: center ;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+        <img src="logotip.png" alt="Nummagie Logo" class="site-logo">
+        <h1>Раскройте тайны чисел вашей жизни</h1></div>
+        <div class="subtitle">Нумерология - древняя наука, которая поможет вам понять свой жизненный путь, предназначение и скрытые таланты через силу чисел.</div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'life-path')">Число жизненного пути</button>
+            <button class="tab-button" onclick="openTab(event, 'destiny')">Число судьбы (имени)</button>
+            <button class="tab-button" onclick="openTab(event, 'compatibility')">Взаимосвязь в отношениях</button>
+            <button class="tab-button" onclick="openTab(event, 'dates')">Удачные даты</button>
+            <button class="tab-button" onclick="openTab(event, 'cycles')">Жизненные циклы</button>
+            <button class="tab-button" onclick="openTab(event, 'name-choice')">Выбор имени</button>
+            <button class="tab-button" onclick="openTab(event, 'career')">Карьерное направление</button>
+            <button class="tab-button" onclick="openTab(event, 'health')">Анализ здоровья</button>
+            <button class="tab-button" onclick="openTab(event, 'spirituality')">Развитие духовности</button>
+        </div>
+
+        <!-- Вкладка 1: Число жизненного пути -->
+        <div id="life-path" class="tab-content active">
+            <h2>Число жизненного пути</h2>
+            <p>Число жизненного пути — одно из самых важных чисел в нумерологии. Оно рассчитывается на основе вашей даты рождения и показывает ваши врожденные таланты, характер и жизненные цели.</p>
+
+            <form id="life-path-form">
+                <div class="form-group">
+                    <label for="birthdate">Введите вашу дату рождения:</label>
+                    <input type="date" id="birthdate" required>
+                </div>
+                <button type="button" onclick="calculateLifePath()">Рассчитать</button>
+            </form>
+
+            <div id="life-path-result" class="result">
+                <h3>Ваше число жизненного пути: <span id="life-path-number" class="num-circle">?</span></h3>
+                <div id="life-path-meaning" class="number-meaning"></div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3>Значения чисел жизненного пути</h3>
+                <table>
+                    <tr>
+                        <th>Число</th>
+                        <th>Значение</th>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">1</span></td>
+                        <td>Лидерство, независимость, оригинальность, уверенность в себе, инициативность</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">2</span></td>
+                        <td>Сотрудничество, дипломатия, чувствительность, интуиция, гармония</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">3</span></td>
+                        <td>Творчество, коммуникабельность, оптимизм, выразительность, вдохновение</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">4</span></td>
+                        <td>Стабильность, практичность, организованность, надежность, дисциплина</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">5</span></td>
+                        <td>Свобода, приключения, изменения, адаптивность, любознательность</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">6</span></td>
+                        <td>Ответственность, забота, гармония, любовь, семья, баланс</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">7</span></td>
+                        <td>Аналитическое мышление, духовность, мудрость, поиск истины, интроспекция</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">8</span></td>
+                        <td>Амбиции, достижения, материальный успех, власть, самодисциплина</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">9</span></td>
+                        <td>Гуманизм, бескорыстие, сострадание, завершение, универсальная любовь</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">11</span></td>
+                        <td>Мастер-число: интуиция, вдохновение, духовное просветление, идеализм</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">22</span></td>
+                        <td>Мастер-число: практический идеализм, мастерство, великие достижения</td>
+                    </tr>
+                    <tr>
+                        <td><span class="num-circle">33</span></td>
+                        <td>Мастер-число: духовное служение, альтруизм, просветление</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Вкладка 2: Число судьбы (имени) -->
+        <div id="destiny" class="tab-content">
+            <h2>Число судьбы (имени)</h2>
+            <p>Число судьбы, или число экспрессии, рассчитывается на основе всех букв вашего полного имени при рождении. Оно показывает ваши таланты, способности и личностные качества.</p>
+
+            <form id="destiny-form">
+                <div class="form-group">
+                    <label for="full-name">Введите ваше полное имя при рождении:</label>
+                    <input type="text" id="full-name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <button type="button" onclick="calculateDestiny()">Рассчитать</button>
+            </form>
+
+            <div id="destiny-result" class="result">
+                <h3>Ваше число судьбы: <span id="destiny-number" class="num-circle">?</span></h3>
+                <div id="destiny-meaning" class="number-meaning"></div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3>Числовые соответствия букв (русский алфавит)</h3>
+                <table>
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                    </tr>
+                    <tr>
+                        <td>А, И, С, Ъ</td>
+                        <td>Б, Й, Т, Ы</td>
+                        <td>В, К, У, Ь</td>
+                        <td>Г, Л, Ф, Э</td>
+                        <td>Д, М, Х, Ю</td>
+                        <td>Е, Н, Ц, Я</td>
+                        <td>Ё, О, Ч</td>
+                        <td>Ж, П, Ш</td>
+                        <td>З, Р, Щ</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Вкладка 3: Взаимосвязь в отношениях -->
+        <div id="compatibility" class="tab-content">
+            <h2>Взаимосвязь чисел в отношениях</h2>
+            <p>Нумерологическая совместимость поможет понять потенциал ваших отношений с партнером, выявить сильные стороны и возможные трудности.</p>
+
+            <form id="compatibility-form">
+                <div class="form-group">
+                    <label for="your-birth-date">Ваша дата рождения:</label>
+                    <input type="date" id="your-birth-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="partner-birth-date">Дата рождения партнера:</label>
+                    <input type="date" id="partner-birth-date" required>
+                </div>
+                <button type="button" onclick="calculateCompatibility()">Проверить совместимость</button>
+            </form>
+
+            <div id="compatibility-result" class="result">
+                <h3>Результаты совместимости</h3>
+                <p>Ваше число жизненного пути: <span id="your-path-number" class="num-circle">?</span></p>
+                <p>Число жизненного пути партнера: <span id="partner-path-number" class="num-circle">?</span></p>
+
+                <h4>Совместимость в отношениях:</h4>
+                <div class="compatibility-level">
+                    <span>Эмоциональная:</span>
+                    <div class="compatibility-bar">
+                        <div id="emotional-compatibility" class="compatibility-fill" style="width: 0%"></div>
+                    </div>
+                    <span id="emotional-percentage">0%</span>
+                </div>
+                <div class="compatibility-level">
+                    <span>Интеллектуальная:</span>
+                    <div class="compatibility-bar">
+                        <div id="intellectual-compatibility" class="compatibility-fill" style="width: 0%"></div>
+                    </div>
+                    <span id="intellectual-percentage">0%</span>
+                </div>
+                <div class="compatibility-level">
+                    <span>Духовная:</span>
+                    <div class="compatibility-bar">
+                        <div id="spiritual-compatibility" class="compatibility-fill" style="width: 0%"></div>
+                    </div>
+                    <span id="spiritual-percentage">0%</span>
+                </div>
+                <div id="compatibility-description" class="number-meaning"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка 4: Удачные даты -->
+        <div id="dates" class="tab-content">
+            <h2>Выбор удачных дат</h2>
+            <p>Рассчитайте благоприятные даты для важных событий на основе вашего личного числа и универсальных нумерологических ритмов.</p>
+
+            <form id="lucky-dates-form">
+                <div class="form-group">
+                    <label for="date-birthdate">Ваша дата рождения:</label>
+                    <input type="date" id="date-birthdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-type">Тип события:</label>
+                    <select id="event-type">
+                        <option value="business">Деловые встречи</option>
+                        <option value="personal">Личные события</option>
+                        <option value="finance">Финансовые операции</option>
+                        <option value="travel">Путешествия</option>
+                        <option value="health">Здоровье</option>
+                    </select>
+                </div>
+                <button type="button" onclick="calculateLuckyDates()">Рассчитать удачные даты</button>
+            </form>
+
+            <div id="lucky-dates-result" class="result">
+                <h3>Благоприятные даты для вас</h3>
+                <div id="lucky-dates-list"></div>
+                <div id="lucky-dates-explanation" class="number-meaning"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка 5: Жизненные циклы -->
+        <div id="cycles" class="tab-content">
+            <h2>Понимание жизненных циклов</h2>
+            <p>Нумерология выделяет разные циклы жизни, которые влияют на наши возможности, испытания и опыт в разные периоды.</p>
+
+            <form id="cycles-form">
+                <div class="form-group">
+                    <label for="cycles-birthdate">Ваша дата рождения:</label>
+                    <input type="date" id="cycles-birthdate" required>
+                </div>
+                <button type="button" onclick="calculateCycles()">Рассчитать циклы</button>
+            </form>
+
+            <div id="cycles-result" class="result">
+                <h3>Ваши жизненные циклы</h3>
+                <div id="cycles-diagram"></div>
+
+                <h4>Первый цикл (с рождения до <span id="first-cycle-end">?</span> лет)</h4>
+                <p>Число: <span id="first-cycle-number" class="num-circle">?</span></p>
+                <div id="first-cycle-meaning" class="number-meaning"></div>
+
+                <h4>Второй цикл (с <span id="second-cycle-start">?</span> до <span id="second-cycle-end">?</span> лет)</h4>
+                <p>Число: <span id="second-cycle-number" class="num-circle">?</span></p>
+                <div id="second-cycle-meaning" class="number-meaning"></div>
+
+                <h4>Третий цикл (с <span id="third-cycle-start">?</span> лет до конца жизни)</h4>
+                <p>Число: <span id="third-cycle-number" class="num-circle">?</span></p>
+                <div id="third-cycle-meaning" class="number-meaning"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка 6: Выбор имени -->
+        <div id="name-choice" class="tab-content">
+            <h2>Выбор имени или названия</h2>
+            <p>Проанализируйте числовую вибрацию имени для ребенка, бизнеса или проекта, чтобы оно лучше соответствовало вашим целям.</p>
+
+            <form id="name-choice-form">
+                <div class="form-group">
+                    <label for="name-to-analyze">Введите имя или название для анализа:</label>
+                    <input type="text" id="name-to-analyze" placeholder="Имя или название" required>
+                </div>
+                <div class="form-group">
+                    <label for="name-purpose">Цель:</label>
+                    <select id="name-purpose">
+                        <option value="child">Имя для ребенка</option>
+                        <option value="business">Название бизнеса</option>
+                        <option value="project">Название проекта</option>
+                        <option value="personal">Личный псевдоним</option>
+                    </select>
+                </div>
+                <button type="button" onclick="analyzeName()">Анализировать</button>
+            </form>
+
+            <div id="name-analysis-result" class="result">
+                <h3>Анализ имени: <span id="analyzed-name"></span></h3>
+                <p>Число имени: <span id="name-number" class="num-circle">?</span></p>
+                <div id="name-meaning" class="number-meaning"></div>
+
+                <h4>Дополнительные характеристики:</h4>
+                <div id="name-characteristics"></div>
+
+                <h4>Рекомендации:</h4>
+                <div id="name-recommendations"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка 7: Карьерное направление -->
+        <div id="career" class="tab-content">
+            <h2>Карьерное направление</h2>
+            <p>Узнайте, какие профессии и карьерные пути наиболее гармонично соответствуют вашим нумерологическим числам.</p>
+
+            <form id="career-form">
+                <div class="form-group">
+                    <label for="career-birthdate">Ваша дата рождения:</label>
+                    <input type="date" id="career-birthdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="career-name">Ваше полное имя:</label>
+                    <input type="text" id="career-name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <button type="button" onclick="analyzeCareer()">Анализировать</button>
+            </form>
+
+            <div id="career-result" class="result">
+                <h3>Ваш карьерный профиль</h3>
+                <p>Число жизненного пути: <span id="career-life-path" class="num-circle">?</span></p>
+                <p>Число судьбы: <span id="career-destiny" class="num-circle">?</span></p>
+
+                <h4>Рекомендуемые карьерные направления:</h4>
+                <div id="career-recommendations"></div>
+
+                <h4>Ключевые профессиональные качества:</h4>
+                <div id="career-strengths"></div>
+
+                <h4>Области для развития:</h4>
+                <div id="career-challenges"></div>
+            </div>
+        </div>
+
+        <!-- Вкладка 8: Анализ здоровья -->
+        <div id="health" class="tab-content">
+            <h2>Анализ здоровья</h2>
+            <p>Нумерология может указать на потенциальные сильные и слабые стороны вашего здоровья, а также дать рекомендации по поддержанию баланса.</p>
+
+            <form id="health-form">
+                <div class="form-group">
+                    <label for="health-birthdate">Ваша дата рождения:</label>
+                    <input type="date" id="health-birthdate" required>
+                </div>
+                <button type="button" onclick="analyzeHealth()">Проанализировать</button>
+            </form>
+
+            <div id="health-result" class="result">
+                <h3>Нумерологический анализ здоровья</h3>
+                <p>Ваше число здоровья: <span id="health-number" class="num-circle">?</span></p>
+
+                <h4>Основной тип энергии:</h4>
+                <div id="health-energy-type"></div>
+
+                <h4>Сильные стороны здоровья:</h4>
+                <div id="health-strengths"></div>
+
+                <h4>Потенциальные области уязвимости:</h4>
+                <div id="health-weaknesses"></div>
+
+                <h4>Рекомендации по поддержанию баланса:</h4>
+                <div id="health-recommendations"></div>
+
+                <p style="font-style: italic; margin-top: 2rem;">Примечание: Это нумерологический анализ, который не заменяет профессиональные медицинские консультации.</p>
+            </div>
+        </div>
+
+        <!-- Вкладка 9: Развитие духовности -->
+        <div id="spirituality" class="tab-content">
+            <h2>Развитие духовности</h2>
+            <p>Изучите духовный аспект ваших нумерологических чисел и получите руководство для духовного роста и развития.</p>
+
+            <form id="spirituality-form">
+                <div class="form-group">
+                    <label for="spirituality-birthdate">Ваша дата рождения:</label>
+                    <input type="date" id="spirituality-birthdate" required>
+                </div>
+                <div class="form-group">
+                    <label for="spirituality-name">Ваше полное имя:</label>
+                    <input type="text" id="spirituality-name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <button type="button" onclick="analyzeSpirituality()">Анализировать</button>
+            </form>
+
+            <div id="spirituality-result" class="result">
+                <h3>Духовный профиль</h3>
+                <p>Духовное число: <span id="spirituality-number" class="num-circle">?</span></p>
+                <p>Число души: <span id="soul-number" class="num-circle">?</span></p>
+
+                <h4>Духовный путь:</h4>
+                <div id="spiritual-path"></div>
+
+                <h4>Духовные дары:</h4>
+                <div id="spiritual-gifts"></div>
+
+                <h4>Духовные уроки:</h4>
+                <div id="spiritual-lessons"></div>
+
+                <h4>Практики для духовного роста:</h4>
+                <div id="spiritual-practices"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Нумерология: Познай свои числа | Все права защищены</p>
+        <p>Этот сайт предназначен только для информационных и развлекательных целей</p>
+    </footer>
+
+    <script>
+        // Функция открытия вкладок
+        function openTab(evt, tabName) {
+            const tabContent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Функция для редукции чисел в нумерологии
+        function reduceNumber(num) {
+            // Особые числа (мастер-числа)
+            if (num === 11 || num === 22 || num === 33) {
+                return num;
+            }
+
+            // Редукция до однозначного числа
+            while (num > 9) {
+                let sum = 0;
+                while (num > 0) {
+                    sum += num % 10;
+                    num = Math.floor(num / 10);
+                }
+                num = sum;
+            }
+            return num;
+        }
+
+        // Функция для вычисления числа жизненного пути
+        function calculateLifePath() {
+            const birthdate = document.getElementById("birthdate").value;
+            if (!birthdate) {
+                alert("Пожалуйста, введите дату рождения");
+                return;
+            }
+
+            const parts = birthdate.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+
+            // Сумма всех цифр даты рождения
+            let sum = day;
+            sum += reduceNumber(month);
+            sum += reduceNumber(year);
+
+            // Редукция до однозначного числа или мастер-числа
+            const lifePathNumber = reduceNumber(sum);
+
+            // Отображение результата
+            document.getElementById("life-path-number").textContent = lifePathNumber;
+            document.getElementById("life-path-result").classList.add("active");
+
+            // Описания для числа жизненного пути
+            const meanings = {
+                1: "Вы — прирождённый лидер и новатор. Ваша судьба — быть первопроходцем, проявлять инициативу и вести за собой других. Вы обладаете сильной волей, независимостью и стремлением к самореализации.",
+                2: "Ваш путь связан с сотрудничеством, партнёрством и дипломатией. Вы от природы чувствительны, интуитивны и умеете находить баланс. Ваша задача — создавать гармонию и помогать другим.",
+                3: "Ваш путь — творческое самовыражение и радость жизни. Вы обладаете богатым воображением, коммуникабельностью и оптимизмом. Ваша цель — вдохновлять других и делиться своими идеями с миром.",
+                4: "Ваш путь связан с построением прочного фундамента. Вы практичны, организованны и надёжны. Ваша задача — создавать порядок из хаоса и воплощать идеи в реальность через упорный труд.",
+                5: "Ваш путь — свобода и изменения. Вы любознательны, адаптивны и жаждете новых впечатлений. Ваша задача — исследовать разнообразие жизни и делиться своим опытом с другими.",
+                6: "Ваш путь связан с ответственностью, заботой и служением. Вы гармоничны, любящи и стремитесь к справедливости. Ваша задача — создавать баланс и поддерживать других.",
+                7: "Ваш путь — поиск истины и мудрости. Вы аналитичны, интуитивны и духовны. Ваша задача — углубляться в понимание мира и делиться своими открытиями с другими.",
+                8: "Ваш путь связан с достижением материального успеха и влияния. Вы амбициозны, организованны и дисциплинированы. Ваша задача — реализовать свой потенциал в материальном мире.",
+                9: "Ваш путь — гуманитарная деятельность и служение высшему благу. Вы сострадательны, идеалистичны и универсальны. Ваша задача — завершать циклы и помогать другим.",
+                11: "Вы обладаете мастер-числом интуиции и духовного просветления. Ваша повышенная чувствительность и идеализм помогают вам вдохновлять других. Ваша задача — использовать своё духовное понимание для помощи человечеству.",
+                22: "Вы обладаете мастер-числом практического идеализма. Ваша способность превращать мечты в реальность помогает вам достигать великих целей. Ваша задача — строить структуры, которые будут служить многим поколениям.",
+                33: "Вы обладаете редким мастер-числом духовного служения. Ваша безграничная любовь и альтруизм помогают вам поднимать сознание других. Ваша задача — служить высшему благу через самопожертвование и безусловную любовь."
+            };
+
+            document.getElementById("life-path-meaning").textContent = meanings[lifePathNumber];
+        }
+
+        // Функция для вычисления числа судьбы (имени)
+        function calculateDestiny() {
+            const fullName = document.getElementById("full-name").value;
+            if (!fullName) {
+                alert("Пожалуйста, введите ваше полное имя");
+                return;
+            }
+
+            // Числовые соответствия букв (русский алфавит)
+            const letterValues = {
+                'а': 1, 'и': 1, 'с': 1, 'ъ': 1,
+                'б': 2, 'й': 2, 'т': 2, 'ы': 2,
+                'в': 3, 'к': 3, 'у': 3, 'ь': 3,
+                'г': 4, 'л': 4, 'ф': 4, 'э': 4,
+                'д': 5, 'м': 5, 'х': 5, 'ю': 5,
+                'е': 6, 'н': 6, 'ц': 6, 'я': 6,
+                'ё': 7, 'о': 7, 'ч': 7,
+                'ж': 8, 'п': 8, 'ш': 8,
+                'з': 9, 'р': 9, 'щ': 9
+            };
+            const latinMap = {
+            A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+            J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+            S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+            };
+            // Расчёт суммы числовых значений букв имени
+            let sum = 0;
+            const nameLower = fullName.toLowerCase();
+
+            for (let i = 0; i < nameLower.length; i++) {
+                const char = nameLower.charAt(i);
+                if (letterValues[char]) {
+                    sum += letterValues[char];
+                }
+                else if (latinMap[char.toUpperCase()]) {
+                    sum += latinMap[char.toUpperCase()];
+                }
+            }
+
+            // Редукция до однозначного числа или мастер-числа
+            const destinyNumber = reduceNumber(sum);
+
+            // Отображение результата
+            document.getElementById("destiny-number").textContent = destinyNumber;
+            document.getElementById("destiny-result").classList.add("active");
+
+            // Описания для числа судьбы
+            const meanings = {
+                1: "Ваше предназначение — быть лидером и первопроходцем. Вы призваны проявлять оригинальность, инициативу и независимость в своих действиях.",
+                2: "Ваше предназначение — быть миротворцем и дипломатом. Вы призваны развивать сотрудничество, партнёрство и гармонию в отношениях.",
+                3: "Ваше предназначение — быть творцом и коммуникатором. Вы призваны выражать себя через творчество, делиться своими идеями и вдохновлять других.",
+                4: "Ваше предназначение — быть строителем и организатором. Вы призваны создавать прочные структуры и привносить порядок в хаос.",
+                5: "Ваше предназначение — быть исследователем и проводником перемен. Вы призваны искать новые возможности и адаптироваться к изменениям.",
+                6: "Ваше предназначение — быть наставником и защитником. Вы призваны заботиться о других и создавать гармонию в своём окружении.",
+                7: "Ваше предназначение — быть мыслителем и духовным искателем. Вы призваны углублять своё понимание мира и делиться мудростью.",
+                8: "Ваше предназначение — быть руководителем и достигать материального успеха. Вы призваны использовать власть и влияние для улучшения мира.",
+                9: "Ваше предназначение — быть гуманистом и бескорыстным служителем. Вы призваны завершать циклы и помогать другим бескорыстно.",
+                11: "Ваше предназначение — быть вдохновителем и духовным учителем. Вы призваны использовать свою интуицию и идеализм для просветления других.",
+                22: "Ваше предназначение — быть мастером-строителем. Вы призваны воплощать великие идеи в материальной реальности для блага человечества.",
+                33: "Ваше предназначение — быть духовным наставником и целителем. Вы призваны проявлять безусловную любовь и самопожертвование для высшего блага."
+            };
+
+            document.getElementById("destiny-meaning").textContent = meanings[destinyNumber];
+        }
+
+        // Функция для вычисления совместимости
+        function calculateCompatibility() {
+            const yourBirthDate = document.getElementById("your-birth-date").value;
+            const partnerBirthDate = document.getElementById("partner-birth-date").value;
+
+            if (!yourBirthDate || !partnerBirthDate) {
+                alert("Пожалуйста, введите обе даты рождения");
+                return;
+            }
+
+            // Расчёт чисел жизненного пути для обоих партнёров
+            const yourParts = yourBirthDate.split('-');
+            const yourYear = parseInt(yourParts[0]);
+            const yourMonth = parseInt(yourParts[1]);
+            const yourDay = parseInt(yourParts[2]);
+
+            const partnerParts = partnerBirthDate.split('-');
+            const partnerYear = parseInt(partnerParts[0]);
+            const partnerMonth = parseInt(partnerParts[1]);
+            const partnerDay = parseInt(partnerParts[2]);
+
+            // Суммы всех цифр дат рождения
+            let yourSum = yourDay + reduceNumber(yourMonth) + reduceNumber(yourYear);
+            let partnerSum = partnerDay + reduceNumber(partnerMonth) + reduceNumber(partnerYear);
+
+            // Редукция до однозначного числа или мастер-числа
+            const yourLifePathNumber = reduceNumber(yourSum);
+            const partnerLifePathNumber = reduceNumber(partnerSum);
+
+            // Отображение результата
+            document.getElementById("your-path-number").textContent = yourLifePathNumber;
+            document.getElementById("partner-path-number").textContent = partnerLifePathNumber;
+
+            // Расчёт процентов совместимости
+            // Это упрощённый алгоритм для примера
+            const compatibilityTable = {
+                1: { 1: 70, 2: 60, 3: 90, 4: 50, 5: 80, 6: 40, 7: 60, 8: 90, 9: 70, 11: 85, 22: 75, 33: 65 },
+                2: { 1: 60, 2: 80, 3: 70, 4: 90, 5: 50, 6: 90, 7: 60, 8: 50, 9: 80, 11: 90, 22: 60, 33: 85 },
+                3: { 1: 90, 2: 70, 3: 80, 4: 60, 5: 90, 6: 80, 7: 50, 8: 70, 9: 90, 11: 75, 22: 65, 33: 80 },
+                4: { 1: 50, 2: 90, 3: 60, 4: 80, 5: 40, 6: 70, 7: 80, 8: 90, 9: 50, 11: 60, 22: 95, 33: 70 },
+                5: { 1: 80, 2: 50, 3: 90, 4: 40, 5: 90, 6: 50, 7: 70, 8: 60, 9: 80, 11: 70, 22: 60, 33: 75 },
+                6: { 1: 40, 2: 90, 3: 80, 4: 70, 5: 50, 6: 90, 7: 60, 8: 50, 9: 90, 11: 80, 22: 70, 33: 95 },
+                7: { 1: 60, 2: 60, 3: 50, 4: 80, 5: 70, 6: 60, 7: 90, 8: 65, 9: 75, 11: 90, 22: 80, 33: 85 },
+                8: { 1: 90, 2: 50, 3: 70, 4: 90, 5: 60, 6: 50, 7: 65, 8: 80, 9: 60, 11: 65, 22: 90, 33: 70 },
+                9: { 1: 70, 2: 80, 3: 90, 4: 50, 5: 80, 6: 90, 7: 75, 8: 60, 9: 85, 11: 85, 22: 75, 33: 90 },
+                11: { 1: 85, 2: 90, 3: 75, 4: 60, 5: 70, 6: 80, 7: 90, 8: 65, 9: 85, 11: 95, 22: 90, 33: 95 },
+                22: { 1: 75, 2: 60, 3: 65, 4: 95, 5: 60, 6: 70, 7: 80, 8: 90, 9: 75, 11: 90, 22: 95, 33: 90 },
+                33: { 1: 65, 2: 85, 3: 80, 4: 70, 5: 75, 6: 95, 7: 85, 8: 70, 9: 90, 11: 95, 22: 90, 33: 99 }
+            };
+
+            // Установка процентов совместимости
+            const emotionalPercentage = compatibilityTable[yourLifePathNumber][partnerLifePathNumber];
+            const intellectualPercentage = (compatibilityTable[yourLifePathNumber][partnerLifePathNumber] + 10) % 100;
+            const spiritualPercentage = (compatibilityTable[yourLifePathNumber][partnerLifePathNumber] - 5) % 100;
+
+            document.getElementById("emotional-compatibility").style.width = emotionalPercentage + "%";
+            document.getElementById("emotional-percentage").textContent = emotionalPercentage + "%";
+
+            document.getElementById("intellectual-compatibility").style.width = intellectualPercentage + "%";
+            document.getElementById("intellectual-percentage").textContent = intellectualPercentage + "%";
+
+            document.getElementById("spiritual-compatibility").style.width = spiritualPercentage + "%";
+            document.getElementById("spiritual-percentage").textContent = spiritualPercentage + "%";
+
+            // Описание совместимости
+            let compatibilityDescription = "";
+            const averagePercentage = (emotionalPercentage + intellectualPercentage + spiritualPercentage) / 3;
+
+            if (averagePercentage >= 80) {
+                compatibilityDescription = "Отличная совместимость! Ваши числа жизненного пути гармонично дополняют друг друга. У вас есть потенциал для создания крепких и долгосрочных отношений с глубоким взаимопониманием.";
+            } else if (averagePercentage >= 60) {
+                compatibilityDescription = "Хорошая совместимость. Ваши числа создают баланс, хотя могут возникать некоторые трудности. При работе над отношениями вы можете достичь гармоничного союза.";
+            } else {
+                compatibilityDescription = "Потребуются усилия для гармоничных отношений. Ваши числа жизненного пути создают определенные вызовы. Однако, понимая различия и работая над отношениями, вы можете преодолеть трудности.";
+            }
+
+            document.getElementById("compatibility-description").textContent = compatibilityDescription;
+            document.getElementById("compatibility-result").classList.add("active");
+        }
+
+        // Функция для расчёта удачных дат
+        function calculateLuckyDates() {
+            const birthdate = document.getElementById("date-birthdate").value;
+            const eventType = document.getElementById("event-type").value;
+
+            if (!birthdate) {
+                alert("Пожалуйста, введите дату рождения");
+                return;
+            }
+
+            // Расчёт числа жизненного пути
+            const parts = birthdate.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+
+            let sum = day + reduceNumber(month) + reduceNumber(year);
+            const lifePathNumber = reduceNumber(sum);
+
+            // Текущая дата для расчёта на ближайшие месяцы
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth();
+
+            // Генерация удачных дат
+            const luckyDays = [];
+
+            // Упрощённый алгоритм для примера
+            // Для каждого числа жизненного пути есть счастливые дни
+            const luckyDaysMap = {
+                1: [1, 10, 19, 28],
+                2: [2, 11, 20, 29],
+                3: [3, 12, 21, 30],
+                4: [4, 13, 22, 31],
+                5: [5, 14, 23],
+                6: [6, 15, 24],
+                7: [7, 16, 25],
+                8: [8, 17, 26],
+                9: [9, 18, 27],
+                11: [11, 29],
+                22: [22],
+                33: [3, 12, 21, 30]
+            };
+
+            // Удачные дни для конкретного типа события
+            let eventLuckyDays = luckyDaysMap[lifePathNumber];
+
+            // Дополнительные удачные дни в зависимости от типа события
+            const eventModifiers = {
+                'business': [1, 8],
+                'personal': [2, 6],
+                'finance': [8, 4],
+                'travel': [5, 9],
+                'health': [3, 7]
+            };
+
+            eventLuckyDays = [...new Set([...eventLuckyDays, ...eventModifiers[eventType]])];
+
+            // Генерация удачных дат на следующие 3 месяца
+            for (let i = 0; i < 3; i++) {
+                const month = (currentMonth + i) % 12 + 1;
+                const year = currentMonth + i >= 12 ? currentYear + 1 : currentYear;
+
+                for (const day of eventLuckyDays) {
+                    if (day <= new Date(year, month, 0).getDate()) { // Проверка валидности дня для месяца
+                        const formattedMonth = month.toString().padStart(2, '0');
+                        const formattedDay = day.toString().padStart(2, '0');
+                        luckyDays.push(`${formattedDay}.${formattedMonth}.${year}`);
+                    }
+                }
+            }
+
+            // Отображение результата
+            const luckyDatesList = document.getElementById("lucky-dates-list");
+            luckyDatesList.innerHTML = "";
+
+            if (luckyDays.length > 0) {
+                const ul = document.createElement("ul");
+                luckyDays.forEach(date => {
+                    const li = document.createElement("li");
+                    li.textContent = date;
+                    ul.appendChild(li);
+                });
+                luckyDatesList.appendChild(ul);
+            } else {
+                luckyDatesList.textContent = "Не удалось определить удачные даты";
+            }
+
+            // Объяснение результатов
+            let explanation = "";
+            switch (eventType) {
+                case 'business':
+                    explanation = `Для вас с числом жизненного пути ${lifePathNumber} наиболее благоприятными для деловых встреч будут дни, когда космическая энергия усиливает вашу решительность и ясность мышления. В эти дни вы будете более убедительны и сможете принимать важные решения.`;
+                    break;
+                case 'personal':
+                    explanation = `Для личных событий с вашим числом жизненного пути ${lifePathNumber} наиболее гармоничными будут дни, когда усилена энергия сердца и открытости. В эти дни вы сможете глубже соединиться с близкими и создать особые моменты.`;
+                    break;
+                case 'finance':
+                    explanation = `Для финансовых операций с числом ${lifePathNumber} наиболее благоприятны дни, когда усилена энергия изобилия и материальной стабильности. В эти дни ваша интуиция в финансовых вопросах будет наиболее острой.`;
+                    break;
+                case 'travel':
+                    explanation = `Для путешествий с вашим числом жизненного пути ${lifePathNumber} идеальны дни, когда космическая энергия усиливает вашу адаптивность и открытость новому опыту. В эти дни путешествия будут наиболее гладкими и обогащающими.`;
+                    break;
+                case 'health':
+                    explanation = `Для вопросов здоровья с числом ${lifePathNumber} наиболее благоприятны дни, когда усилена целительная энергия и связь с внутренней мудростью тела. В эти дни оздоровительные процедуры будут особенно эффективны.`;
+                    break;
+            }
+
+            document.getElementById("lucky-dates-explanation").textContent = explanation;
+            document.getElementById("lucky-dates-result").classList.add("active");
+        }
+
+        // Функция для расчёта жизненных циклов
+        function calculateCycles() {
+            const birthdate = document.getElementById("cycles-birthdate").value;
+
+            if (!birthdate) {
+                alert("Пожалуйста, введите дату рождения");
+                return;
+            }
+
+            // Расчёт чисел для циклов на основе даты рождения
+            const parts = birthdate.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+
+            // Расчёт продолжительности циклов
+            const firstCycleEnd = 28 + (day % 4); // Примерная продолжительность для примера
+            const secondCycleEnd = firstCycleEnd + 28 + (month % 5);
+            const thirdCycleStart = secondCycleEnd + 1;
+
+            // Определение чисел для каждого цикла
+            const firstCycleNumber = reduceNumber(day);
+            const secondCycleNumber = reduceNumber(month);
+            const thirdCycleNumber = reduceNumber(year);
+
+            // Отображение результатов
+            document.getElementById("first-cycle-end").textContent = firstCycleEnd;
+            document.getElementById("first-cycle-number").textContent = firstCycleNumber;
+
+            document.getElementById("second-cycle-start").textContent = firstCycleEnd + 1;
+            document.getElementById("second-cycle-end").textContent = secondCycleEnd;
+            document.getElementById("second-cycle-number").textContent = secondCycleNumber;
+
+            document.getElementById("third-cycle-start").textContent = thirdCycleStart;
+            document.getElementById("third-cycle-number").textContent = thirdCycleNumber;
+
+            // Описания для циклов
+            const firstCycleMeanings = {
+                1: "Первый цикл направлен на развитие независимости, уверенности в себе и лидерских качеств. Это время формирования индивидуальности и поиска своего пути.",
+                2: "Первый цикл связан с развитием эмоционального интеллекта, чувствительности и умения строить отношения. Это время обучения сотрудничеству и дипломатии.",
+                3: "Первый цикл фокусируется на творческом самовыражении и коммуникации. Это время обучения, исследования своих талантов и развития оптимизма.",
+                4: "Первый цикл направлен на построение прочного фундамента для жизни. Это время формирования дисциплины, практичности и организованности.",
+                5: "Первый цикл связан с исследованием и адаптацией. Это время обучения через опыт, развития любознательности и гибкости.",
+                6: "Первый цикл фокусируется на ответственности и гармонии. Это время обучения заботе о других, развития чувства справедливости.",
+                7: "Первый цикл направлен на внутренний поиск и развитие аналитического мышления. Это время духовного развития и обучения.",
+                8: "Первый цикл связан с развитием амбиций и материального понимания. Это время обучения организации и дисциплине.",
+                9: "Первый цикл фокусируется на развитии гуманности и альтруизма. Это время обучения состраданию и универсальной любви.",
+                11: "Первый цикл направлен на развитие интуиции и духовного восприятия. Это время обретения высокой чувствительности и идеализма.",
+                22: "Первый цикл связан с развитием практического идеализма. Это время обучения воплощению великих идей в реальность.",
+                33: "Первый цикл фокусируется на развитии духовного служения. Это время обучения безусловной любви и альтруизму."
+            };
+
+            const secondCycleMeanings = {
+                1: "Второй цикл направлен на реализацию лидерского потенциала и достижение независимости. Это время активных действий и принятия самостоятельных решений.",
+                2: "Второй цикл связан с построением значимых отношений и партнёрств. Это время гармонизации и нахождения баланса в жизни.",
+                3: "Второй цикл фокусируется на творческой реализации и коммуникации. Это время выражения своих идей и талантов в мире.",
+                4: "Второй цикл направлен на построение стабильности и материального фундамента. Это время упорного труда и организации жизни.",
+                5: "Второй цикл связан с переменами и расширением горизонтов. Это время путешествий, новых впечатлений и личной свободы.",
+                6: "Второй цикл фокусируется на семье и ответственности за других. Это время создания домашней гармонии и баланса.",
+                7: "Второй цикл направлен на глубокое изучение и духовное развитие. Это время размышлений, анализа и поиска истины.",
+                8: "Второй цикл связан с материальным успехом и влиянием. Это время достижения финансовой стабильности и власти.",
+                9: "Второй цикл фокусируется на служении обществу и гуманитарной деятельности. Это время отдачи и помощи другим.",
+                11: "Второй цикл направлен на духовное развитие и использование интуиции. Это время вдохновения и просветления.",
+                22: "Второй цикл связан с реализацией масштабных проектов и идей. Это время создания чего-то значимого для многих.",
+                33: "Второй цикл фокусируется на духовном служении и поддержке других. Это время проявления высшей любви."
+            };
+            const thirdCycleMeanings = {
+                1: "Третий цикл направлен на полное выражение личной силы и становление авторитетом в своей области. Это время интеграции всего опыта и передачи мудрости другим.",
+                2: "Третий цикл связан с глубоким пониманием отношений и служением другим. Это время мудрого наставничества и создания гармонии в обществе.",
+                3: "Третий цикл фокусируется на использовании творческого потенциала для высшего блага. Это время вдохновения других и радостного самовыражения.",
+                4: "Третий цикл направлен на создание долговечного наследия. Это время построения структур, которые переживут вас, и передачи мудрости следующим поколениям.",
+                5: "Третий цикл связан с обретением истинной свободы и мудрости через опыт. Это время делиться приключениями жизни и поощрять прогрессивные изменения.",
+                6: "Третий цикл фокусируется на служении семье и обществу в более широком смысле. Это время создания идеальной гармонии и баланса в мире.",
+                7: "Третий цикл направлен на достижение духовной мудрости и просветления. Это время глубокого понимания и передачи духовных знаний.",
+                8: "Третий цикл связан с использованием материального успеха для высшего блага. Это время создания наследия и структур, которые помогают другим.",
+                9: "Третий цикл фокусируется на универсальной любви и завершении больших жизненных циклов. Это время для гуманитарной деятельности и служения всему человечеству.",
+                11: "Третий цикл направлен на духовное учительство и вдохновение других. Это время высокой интуиции и просветления, которыми делятся с миром.",
+                22: "Третий цикл связан с построением чего-то величественного для будущих поколений. Это время реализации величайшего потенциала мастера-строителя.",
+                33: "Третий цикл фокусируется на воплощении безусловной любви и высшего служения. Это время глубокого духовного влияния на большие группы людей."
+            };
+
+            document.getElementById("first-cycle-meaning").textContent = firstCycleMeanings[firstCycleNumber];
+            document.getElementById("second-cycle-meaning").textContent = secondCycleMeanings[secondCycleNumber];
+            document.getElementById("third-cycle-meaning").textContent = thirdCycleMeanings[thirdCycleNumber];
+
+            // Создание визуального представления циклов
+            const cyclesDiagram = document.getElementById("cycles-diagram");
+            cyclesDiagram.innerHTML = `
+                <div style="display: flex; margin-bottom: 2rem; height: 60px;">
+                    <div style="background-color: var(--primary-color); color: white; width: ${firstCycleEnd}%; text-align: center; line-height: 60px; border-radius: 4px 0 0 4px;">
+                        Цикл 1: ${firstCycleNumber}
+                    </div>
+                    <div style="background-color: var(--secondary-color); color: white; width: ${secondCycleEnd - firstCycleEnd}%; text-align: center; line-height: 60px;">
+                        Цикл 2: ${secondCycleNumber}
+                    </div>
+                    <div style="background-color: var(--dark-color); color: white; width: ${100 - secondCycleEnd}%; text-align: center; line-height: 60px; border-radius: 0 4px 4px 0;">
+                        Цикл 3: ${thirdCycleNumber}
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <div>0</div>
+                    <div>${firstCycleEnd}</div>
+                    <div>${secondCycleEnd}</div>
+                    <div>80+</div>
+                </div>
+            `;
+
+            document.getElementById("cycles-result").classList.add("active");
+        }
+
+        // Функция для анализа имени
+        function analyzeName() {
+            const nameToAnalyze = document.getElementById("name-to-analyze").value;
+            const namePurpose = document.getElementById("name-purpose").value;
+
+            if (!nameToAnalyze) {
+                alert("Пожалуйста, введите имя или название для анализа");
+                return;
+            }
+
+            // Числовые соответствия букв (русский алфавит)
+            const letterValues = {
+                'а': 1, 'и': 1, 'с': 1, 'ъ': 1,
+                'б': 2, 'й': 2, 'т': 2, 'ы': 2,
+                'в': 3, 'к': 3, 'у': 3, 'ь': 3,
+                'г': 4, 'л': 4, 'ф': 4, 'э': 4,
+                'д': 5, 'м': 5, 'х': 5, 'ю': 5,
+                'е': 6, 'н': 6, 'ц': 6, 'я': 6,
+                'ё': 7, 'о': 7, 'ч': 7,
+                'ж': 8, 'п': 8, 'ш': 8,
+                'з': 9, 'р': 9, 'щ': 9
+            };
+           const latinMap = {
+                A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+                J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+                S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+         };
+            // Расчёт суммы числовых значений букв имени
+            let sum = 0;
+            const nameLower = nameToAnalyze.toLowerCase();
+
+            for (let i = 0; i < nameLower.length; i++) {
+                const char = nameLower.charAt(i);
+                if (letterValues[char]) {
+                    sum += letterValues[char];
+                }else if (latinMap[char.toUpperCase()]) {
+                    sum += latinMap[char.toUpperCase()];
+                }
+            }
+
+            // Редукция до однозначного числа или мастер-числа
+            const nameNumber = reduceNumber(sum);
+
+            // Отображение результата
+            document.getElementById("analyzed-name").textContent = nameToAnalyze;
+            document.getElementById("name-number").textContent = nameNumber;
+
+            // Значения чисел имени
+            const nameMeanings = {
+                1: "Число 1 символизирует лидерство, оригинальность и независимость. Это имя подходит для тех, кто стремится быть первым, проявлять инициативу и выделяться.",
+                2: "Число 2 символизирует сотрудничество, дипломатию и партнёрство. Это имя подходит для тех, кто стремится к гармонии, миру и взаимодействию с другими.",
+                3: "Число 3 символизирует творчество, экспрессию и радость. Это имя подходит для тех, кто стремится к самовыражению, общению и вдохновению других.",
+                4: "Число 4 символизирует стабильность, порядок и надёжность. Это имя подходит для тех, кто стремится к структуре, практичности и построению прочного фундамента.",
+                5: "Число 5 символизирует свободу, приключения и изменения. Это имя подходит для тех, кто стремится к разнообразию, адаптивности и новому опыту.",
+                6: "Число 6 символизирует гармонию, ответственность и заботу. Это имя подходит для тех, кто стремится к красоте, балансу и служению другим.",
+                7: "Число 7 символизирует мудрость, анализ и духовность. Это имя подходит для тех, кто стремится к внутреннему поиску, глубокому мышлению и пониманию мира.",
+                8: "Число 8 символизирует силу, успех и материальные достижения. Это имя подходит для тех, кто стремится к влиянию, авторитету и финансовому благополучию.",
+                9: "Число 9 символизирует гуманизм, завершение и альтруизм. Это имя подходит для тех, кто стремится к универсальной любви, помощи другим и духовному росту.",
+                11: "Мастер-число 11 символизирует интуицию, вдохновение и духовное просветление. Это имя подходит для тех, кто призван быть духовным наставником и вдохновителем.",
+                22: "Мастер-число 22 символизирует мастерство и великие достижения. Это имя подходит для тех, кто призван воплощать грандиозные идеи в жизнь.",
+                33: "Мастер-число 33 символизирует духовное служение и просветление. Это имя подходит для тех, кто призван помогать другим через безусловную любовь."
+            };
+
+            document.getElementById("name-meaning").textContent = nameMeanings[nameNumber];
+
+            // Дополнительные характеристики в зависимости от цели имени
+            let characteristics = "";
+            switch (namePurpose) {
+                case 'child':
+                    characteristics = `<p>Это имя способствует развитию ${nameNumber === 1 ? "лидерских качеств" : nameNumber === 2 ? "дипломатических способностей" : nameNumber === 3 ? "творческих талантов" : nameNumber === 4 ? "организованности" : nameNumber === 5 ? "приспособляемости" : nameNumber === 6 ? "заботливости" : nameNumber === 7 ? "аналитического мышления" : nameNumber === 8 ? "деловых качеств" : nameNumber === 9 ? "сострадания" : nameNumber === 11 ? "интуиции" : nameNumber === 22 ? "практического идеализма" : "духовной мудрости"} у ребёнка.</p>
+                        <p>Ребёнок с этим именем может быть ${nameNumber === 1 ? "независимым и уверенным в себе" : nameNumber === 2 ? "чутким и дипломатичным" : nameNumber === 3 ? "творческим и общительным" : nameNumber === 4 ? "надёжным и практичным" : nameNumber === 5 ? "любознательным и гибким" : nameNumber === 6 ? "ответственным и гармоничным" : nameNumber === 7 ? "вдумчивым и аналитичным" : nameNumber === 8 ? "амбициозным и организованным" : nameNumber === 9 ? "альтруистичным и вдохновляющим" : nameNumber === 11 ? "интуитивным и чувствительным" : nameNumber === 22 ? "очень целеустремлённым и трудолюбивым" : "глубоко духовным и сострадательным"}.</p>`;
+                    break;
+                case 'business':
+                    characteristics = `<p>Это название привлечёт клиентов, ценящих ${nameNumber === 1 ? "инновации и оригинальность" : nameNumber === 2 ? "партнёрство и сотрудничество" : nameNumber === 3 ? "творчество и коммуникацию" : nameNumber === 4 ? "надёжность и качество" : nameNumber === 5 ? "гибкость и прогрессивность" : nameNumber === 6 ? "сервис и заботу о клиентах" : nameNumber === 7 ? "интеллектуальный подход и экспертизу" : nameNumber === 8 ? "престиж и профессионализм" : nameNumber === 9 ? "социальную ответственность и глобальную миссию" : nameNumber === 11 ? "интуитивный подход и вдохновение" : nameNumber === 22 ? "масштабность и влиятельность" : "духовное лидерство и трансформацию"}.</p>
+                        <p>Бизнес с этим названием может быть успешным в сфере ${nameNumber === 1 ? "технологий и инноваций" : nameNumber === 2 ? "медиации и консалтинга" : nameNumber === 3 ? "развлечений и коммуникации" : nameNumber === 4 ? "строительства и производства" : nameNumber === 5 ? "туризма и развлечений" : nameNumber === 6 ? "здравоохранения и образования" : nameNumber === 7 ? "исследований и аналитики" : nameNumber === 8 ? "финансов и недвижимости" : nameNumber === 9 ? "благотворительности и социальных услуг" : nameNumber === 11 ? "духовных практик и консультирования" : nameNumber === 22 ? "крупных инфраструктурных проектов" : "трансформационных программ и духовного обучения"}.</p>`;
+                    break;
+                case 'project':
+                    characteristics = `<p>Этот проект с таким названием может быть направлен на ${nameNumber === 1 ? "инновации и прорывные решения" : nameNumber === 2 ? "сотрудничество и объединение" : nameNumber === 3 ? "творческое самовыражение и коммуникацию" : nameNumber === 4 ? "создание прочных структур и систем" : nameNumber === 5 ? "изменения и адаптацию" : nameNumber === 6 ? "улучшение качества жизни и гармонии" : nameNumber === 7 ? "исследования и разработки" : nameNumber === 8 ? "достижение материальных результатов" : nameNumber === 9 ? "социальные изменения и помощь" : nameNumber === 11 ? "повышение осознанности и вдохновение" : nameNumber === 22 ? "масштабные преобразования" : "духовную трансформацию общества"}.</p>
+                        <p>Название проекта будет привлекать ${nameNumber === 1 ? "новаторов и первопроходцев" : nameNumber === 2 ? "миротворцев и дипломатов" : nameNumber === 3 ? "творческих и коммуникабельных людей" : nameNumber === 4 ? "организованных и надёжных участников" : nameNumber === 5 ? "гибких и прогрессивных людей" : nameNumber === 6 ? "заботливых и ответственных людей" : nameNumber === 7 ? "аналитиков и мыслителей" : nameNumber === 8 ? "амбициозных и влиятельных людей" : nameNumber === 9 ? "альтруистов и гуманистов" : nameNumber === 11 ? "духовно развитых и интуитивных людей" : nameNumber === 22 ? "визионеров и мастеров своего дела" : "духовных лидеров и целителей"}.</p>`;
+                    break;
+                case 'personal':
+                    characteristics = `<p>Использование этого псевдонима поможет вам развить и выразить качества ${nameNumber === 1 ? "лидера и новатора" : nameNumber === 2 ? "миротворца и дипломата" : nameNumber === 3 ? "творческой и общительной личности" : nameNumber === 4 ? "организованного и надёжного человека" : nameNumber === 5 ? "свободного и приспособляемого исследователя" : nameNumber === 6 ? "гармоничного и ответственного наставника" : nameNumber === 7 ? "мудрого аналитика и мыслителя" : nameNumber === 8 ? "успешного и влиятельного человека" : nameNumber === 9 ? "гуманиста и альтруиста" : nameNumber === 11 ? "духовного вдохновителя" : nameNumber === 22 ? "мастера-строителя" : "духовного учителя"}.</p>
+                        <p>Этот псевдоним будет особенно удачным, если вы стремитесь к ${nameNumber === 1 ? "независимости и самовыражению" : nameNumber === 2 ? "гармонии и сотрудничеству" : nameNumber === 3 ? "творческому самовыражению" : nameNumber === 4 ? "структуре и организации" : nameNumber === 5 ? "приключениям и переменам" : nameNumber === 6 ? "балансу и заботе о других" : nameNumber === 7 ? "познанию и духовному росту" : nameNumber === 8 ? "материальному успеху и влиянию" : nameNumber === 9 ? "служению обществу" : nameNumber === 11 ? "духовному пробуждению" : nameNumber === 22 ? "реализации глобальных проектов" : "духовному служению и просветлению"}.</p>`;
+                    break;
+            }
+
+            document.getElementById("name-characteristics").innerHTML = characteristics;
+
+            // Рекомендации
+            let recommendations = "";
+            switch (namePurpose) {
+                case 'child':
+                    recommendations = `<p>Если вы хотите усилить влияние имени, обратите внимание на среднее имя или отчество, которое дополнит основное имя. Комбинация с числом ${(nameNumber + 3) % 9 || 9} может создать гармоничный баланс.</p>
+                        <p>Обращайте внимание на природные наклонности ребёнка, которые могут соответствовать или контрастировать с энергией имени.</p>`;
+                    break;
+                case 'business':
+                    recommendations = `<p>Для усиления влияния названия используйте в брендинге цвета, соответствующие числу ${nameNumber}: ${nameNumber === 1 ? "красный и оранжевый" : nameNumber === 2 ? "голубой и белый" : nameNumber === 3 ? "жёлтый и лиловый" : nameNumber === 4 ? "зелёный и коричневый" : nameNumber === 5 ? "бирюзовый и серебристый" : nameNumber === 6 ? "розовый и бежевый" : nameNumber === 7 ? "фиолетовый и сиреневый" : nameNumber === 8 ? "тёмно-синий и тёмно-зелёный" : nameNumber === 9 ? "золотистый и красный" : nameNumber === 11 ? "белый и серебристый" : nameNumber === 22 ? "золотой и королевский синий" : "пурпурный и индиго"}.</p>
+                        <p>Слоган или миссия компании должны отражать ключевые качества числа ${nameNumber}, чтобы усилить вибрацию названия.</p>`;
+                    break;
+                case 'project':
+                    recommendations = `<p>Запуск проекта в даты, соответствующие числу ${nameNumber}, может усилить его потенциал успеха.</p>
+                        <p>Поиск партнёров и участников, чьи числа жизненного пути резонируют с числом ${nameNumber} или дополняют его (например, ${(nameNumber + 2) % 9 || 9} или ${(nameNumber + 4) % 9 || 9}), может улучшить динамику проекта.</p>`;
+                    break;
+                case 'personal':
+                    recommendations = `<p>Использование этого псевдонима особенно эффективно в дни, соответствующие числу ${nameNumber} (${nameNumber}-го, ${nameNumber + 9}-го, ${nameNumber + 18}-го, ${nameNumber + 27}-го числа месяца).</p>
+                        <p>Используйте цвета, соответствующие числу ${nameNumber}, в своём гардеробе или личном бренде для усиления влияния псевдонима.</p>`;
+                    break;
+            }
+
+            document.getElementById("name-recommendations").innerHTML = recommendations;
+            document.getElementById("name-analysis-result").classList.add("active");
+        }
+
+        // Функция для анализа карьеры
+        function analyzeCareer() {
+    const birthdate = document.getElementById("career-birthdate").value;
+    const fullName = document.getElementById("career-name").value;
+
+    if (!birthdate || !fullName) {
+        alert("Пожалуйста, заполните все поля формы");
+        return;
+    }
+
+    // Расчёт числа жизненного пути
+    const parts = birthdate.split('-');
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+
+    let sum = day + reduceNumber(month) + reduceNumber(year);
+    const lifePathNumber = reduceNumber(sum);
+
+    // Расчёт числа судьбы (имени)
+    const letterValues = {
+        'а': 1, 'и': 1, 'с': 1, 'ъ': 1,
+        'б': 2, 'й': 2, 'т': 2, 'ы': 2,
+        'в': 3, 'к': 3, 'у': 3, 'ь': 3,
+        'г': 4, 'л': 4, 'ф': 4, 'э': 4,
+        'д': 5, 'м': 5, 'х': 5, 'ю': 5,
+        'е': 6, 'н': 6, 'ц': 6, 'я': 6,
+        'ё': 7, 'о': 7, 'ч': 7,
+        'ж': 8, 'п': 8, 'ш': 8,
+        'з': 9, 'р': 9, 'щ': 9
+    };
+
+    const latinMap = {
+    a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9,
+    j: 1, k: 2, l: 3, m: 4, n: 5, o: 6, p: 7, q: 8, r: 9,
+    s: 1, t: 2, u: 3, v: 4, w: 5, x: 6, y: 7, z: 8
+    };
+
+    let nameSum = 0;
+    const nameLower = fullName.toLowerCase();
+
+    for (let i = 0; i < nameLower.length; i++) {
+        const char = nameLower.charAt(i);
+        if (letterValues[char]) {
+            nameSum += letterValues[char];
+        }
+        else if (latinMap[char]) {
+            nameSum += latinMap[char];
+        }
+    }
+
+    const destinyNumber = reduceNumber(nameSum);
+
+    // Отображение результатов
+    document.getElementById("career-life-path").textContent = lifePathNumber;
+    document.getElementById("career-destiny").textContent = destinyNumber;
+
+    // Рекомендуемые карьерные направления
+    const careerRecommendations = {
+        1: "<p><strong>Предпринимательство и лидерство:</strong> Собственный бизнес, руководящие позиции, инновационные проекты.</p><p><strong>Технологии и изобретения:</strong> Стартапы, разработка новых технологий, инновационные исследования.</p><p><strong>Индивидуальная деятельность:</strong> Консультирование, фриланс, авторская работа.</p>",
+        2: "<p><strong>Дипломатия и партнёрство:</strong> Переговоры, медиация, дипломатическая служба.</p><p><strong>Поддержка и помощь:</strong> Ассистенты, административная работа, сервисные услуги.</p><p><strong>Командная работа:</strong> HR-специалисты, корпоративная культура, психология отношений.</p>",
+        3: "<p><strong>Искусство и творчество:</strong> Актёрское мастерство, писательство, музыка, дизайн.</p><p><strong>Коммуникации:</strong> Маркетинг, PR, журналистика, преподавание.</p><p><strong>Развлечения:</strong> Организация мероприятий, туризм, развлекательная индустрия.</p>",
+        4: "<p><strong>Строительство и производство:</strong> Инженерия, архитектура, строительство, производство.</p><p><strong>Организация и система:</strong> Бухгалтерия, финансы, логистика, организационное управление.</p><p><strong>Наука и техника:</strong> Точные науки, технические специальности, системный анализ.</p>",
+        5: "<p><strong>Свобода и адаптивность:</strong> Путешествия, туризм, работа фрилансером.</p><p><strong>Коммуникации и СМИ:</strong> Журналистика, блогинг, продажи, маркетинг.</p><p><strong>Изменения и реформы:</strong> Консалтинг, политика, социальные изменения.</p>",
+        6: "<p><strong>Забота и обучение:</strong> Медицина, психология, педагогика, семейное консультирование.</p><p><strong>Красота и гармония:</strong> Дизайн интерьера, архитектура, мода, косметология.</p><p><strong>Социальная ответственность:</strong> Социальная работа, консультирование, благотворительность.</p>",
+        7: "<p><strong>Наука и исследования:</strong> Аналитика, научные исследования, философия, теоретические науки.</p><p><strong>Технологии и IT:</strong> Программирование, анализ данных, техническая экспертиза.</p><p><strong>Духовное развитие:</strong> Психология, духовные практики, альтернативная медицина.</p>",
+        8: "<p><strong>Финансы и управление:</strong> Банковское дело, инвестиции, управление крупными проектами.</p><p><strong>Бизнес и организация:</strong> Предпринимательство, управление компаниями, стратегическое планирование.</p><p><strong>Право и политика:</strong> Юриспруденция, арбитраж, политика, государственное управление.</p>",
+        9: "<p><strong>Гуманитарная деятельность:</strong> Благотворительность, общественные организации, социальная работа.</p><p><strong>Искусство с гуманистическим посылом:</strong> Литература, кино, искусство с социальным подтекстом.</p><p><strong>Здравоохранение и благополучие:</strong> Медицина, уход за другими, экология, устойчивое развитие.</p>",
+        11: "<p><strong>Духовное лидерство:</strong> Коучинг, духовное наставничество, психологическая помощь.</p><p><strong>Инновации и вдохновение:</strong> Мотивационные выступления, новаторские проекты.</p><p><strong>Высокая чувствительность:</strong> Искусство, музыка, целительство, интуитивные профессии.</p>",
+        22: "<p><strong>Масштабные проекты:</strong> Архитектура, городское планирование, крупные инфраструктурные проекты.</p><p><strong>Системные изменения:</strong> Предпринимательство с социальным уклоном, образовательные реформы.</p><p><strong>Практическая реализация идей:</strong> Инженерия, строительство, реализация крупных концепций.</p>",
+        33: "<p><strong>Духовное служение:</strong> Духовное учительство, целительство, трансформационные практики.</p><p><strong>Образование и воспитание:</strong> Продвинутые образовательные программы, системы самосовершенствования.</p><p><strong>Универсальная помощь:</strong> Гуманитарная деятельность, глобальные социальные проекты.</p>"
+    };
+
+    // Ключевые профессиональные качества
+    const careerStrengths = {
+        1: "<p>⭐ Инициативность и лидерские качества</p><p>⭐ Независимость и самодостаточность</p><p>⭐ Новаторское мышление и оригинальность</p>",
+        2: "<p>⭐ Дипломатичность и умение выстраивать отношения</p><p>⭐ Эмоциональный интеллект и чуткость</p><p>⭐ Командная работа и сотрудничество</p>",
+        3: "<p>⭐ Креативность и богатое воображение</p><p>⭐ Коммуникабельность и лёгкость общения</p><p>⭐ Оптимизм и способность вдохновлять</p>",
+        4: "<p>⭐ Методичность и организованность</p><p>⭐ Надёжность и ответственность</p><p>⭐ Практичность и внимание к деталям</p>",
+        5: "<p>⭐ Адаптивность и гибкость</p><p>⭐ Любознательность и открытость к новому</p><p>⭐ Способность к быстрой смене деятельности</p>",
+        6: "<p>⭐ Заботливость и ответственность</p><p>⭐ Эмпатия и умение слушать</p><p>⭐ Стремление к гармонии и красоте</p>",
+        7: "<p>⭐ Интуитивность и глубокое понимание</p><p>⭐ Аналитическое мышление и критический подход</p><p>⭐ Способность к самоанализу и самосовершенствованию</p>",
+        8: "<p>⭐ Амбициозность и целеустремлённость</p><p>⭐ Способность к стратегическому мышлению</p><p>⭐ Умение управлять ресурсами и людьми</p>",
+        9: "<p>⭐ Альтруизм и гуманизм</p><p>⭐ Способность к сопереживанию и помощи другим</p><p>⭐ Стремление к социальной справедливости</p>",
+        11: "<p>⭐ Высокая интуиция и чувствительность</p><p>⭐ Способность к глубокому пониманию людей</p><p>⭐ Духовная мудрость и вдохновение</p>",
+        22: "<p>⭐ Мастера своего дела и системный подход</p><p>⭐ Способность к реализации масштабных идей</p><p>⭐ Практическое мышление и организаторские способности</p>",
+        33: "<p>⭐ Духовное служение и альтруизм</p><p>⭐ Способность к трансформации и исцелению</p><p>⭐ Гуманитарный подход и забота о других</p>"
+    };
+
+    const careerChallenges = {
+        1: "Избегайте излишнего эгоизма и нетерпения.",
+        2: "Работайте над уверенностью в своих решениях.",
+        3: "Концентрируйтесь на завершении проектов.",
+        4: "Развивайте гибкость и адаптивность.",
+        5: "Учитесь дисциплине и постоянству.",
+        6: "Балансируйте между заботой о себе и других.",
+        7: "Практикуйте применение знаний в реальном мире.",
+        8: "Избегайте жадности и манипуляций.",
+        9: "Не забывайте о собственных потребностях.",
+        11: "Работайте над практическим применением интуиции.",
+        22: "Избегайте перегрузки и стремления к идеалу.",
+        33: "Не забывайте о собственных границах и потребностях."
+    };
+
+    // Проверка существования элементов перед установкой содержимого
+    const setContent = (id, content) => {
+        const element = document.getElementById(id);
+        if (element) element.innerHTML = content;
+    };
+
+    // Отображение результатов
+    setContent("career-recommendations", careerRecommendations[lifePathNumber] || "Информация не найдена");
+    setContent("career-strengths", careerStrengths[destinyNumber] || "Информация не найдена");
+    setContent("career-challenges", `<p>${careerChallenges[destinyNumber] || "Информация не найдена"}</p>`);
+
+    // Активация вкладки с результатами
+    const resultElement = document.getElementById("career-result");
+    if (resultElement) {
+        resultElement.classList.add("active");
+    } else {
+        console.error("Элемент career-result не найден");
+    }
+}
+                 // Функция для анализа здоровья
+    function analyzeHealth() {
+    const birthdate = document.getElementById("health-birthdate").value;
+
+    if (!birthdate) {
+        alert("Пожалуйста, введите дату рождения");
+        return;
+    }
+
+    // Расчёт числа жизненного пути
+    const parts = birthdate.split('-');
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+
+    let sum = day + reduceNumber(month) + reduceNumber(year);
+    const lifePathNumber = reduceNumber(sum);
+    // Отображение результата
+    document.getElementById("health-number").textContent = lifePathNumber;
+
+    // Интерпретация здоровья на основе числа жизненного пути
+    const healthMeanings = {
+        1: "Энергия и выносливость. Слабые места: голова, глаза, сердце. Рекомендации: активный образ жизни, контроль стресса.",
+        2: "Чувствительность. Слабые места: ЖКТ, иммунитет. Рекомендации: режим дня, травяные чаи.",
+        3: "Крепкий иммунитет. Слабые места: дыхательная система, кожа. Рекомендации: творчество, избегание перегрузок.",
+        4: "Стабильность. Слабые места: суставы, позвоночник. Рекомендации: регулярные тренировки, массаж.",
+        5: "Адаптивность. Слабые места: нервы, кровообращение. Рекомендации: разнообразие в активности, путешествия.",
+        6: "Гармония. Слабые места: сердце, почки. Рекомендации: баланс работы и отдыха, семейные прогулки.",
+        7: "Интуиция. Слабые места: нервная система, аллергии. Рекомендации: медитации, детокс.",
+        8: "Сила. Слабые места: печень, обмен веществ. Рекомендации: контроль питания, финансовый стресс-менеджмент.",
+        9: "Восстановление. Слабые места: хронические болезни. Рекомендации: благотворительность, работа с эмоциями.",
+        11: "Духовность. Слабые места: психосоматика. Рекомендации: медитация, работа с подсознанием.",
+        22: "Мастера. Слабые места: перегрузки. Рекомендации: делегирование, отдых.",
+        33: "Духовное служение. Слабые места: эмоциональная перегрузка. Рекомендации: работа с энергией, забота о себе."
+    };
+
+    document.getElementById("health-energy-type").innerHTML =
+        `<p><strong>Энергетика:</strong> ${healthMeanings[lifePathNumber].split('. ')[0]}.</p>`;
+    document.getElementById("health-strengths").innerHTML =
+        `<p><strong>Сильные стороны:</strong> ${healthMeanings[lifePathNumber].split('. ')[1]}</p>`;
+    document.getElementById("health-weaknesses").innerHTML =
+        `<p><strong>Зоны внимания:</strong> ${healthMeanings[lifePathNumber].split('. ')[2]}</p>`;
+    document.getElementById("health-recommendations").innerHTML =
+        `<p><strong>Советы:</strong> ${healthMeanings[lifePathNumber].split('. ')[3]}</p>`;
+
+    document.getElementById("health-result").classList.add("active");
+}
+// Функция для анализа духовности
+function analyzeSpirituality() {
+    const birthdate = document.getElementById("spirituality-birthdate").value;
+    const fullName = document.getElementById("spirituality-name").value;
+
+    if (!birthdate || !fullName) {
+        alert("Пожалуйста, заполните все поля");
+        return;
+    }
+
+    // Расчёт числа жизненного пути
+    const parts = birthdate.split('-');
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+
+    let sum = day + reduceNumber(month) + reduceNumber(year);
+    const lifePathNumber = reduceNumber(sum);
+
+    // Число души (день рождения)
+    const soulNumber = reduceNumber(day);
+
+    // Отображение результата
+    document.getElementById("soul-number").textContent = soulNumber;
+    document.getElementById("spirituality-number").textContent = lifePathNumber;
+
+    // Интерпретация на основе числа жизненного пути
+    const spiritualData = {
+        1: {
+            path: "Лидерство в духовности. Ваш путь — вести других к осознанности через личный пример.",
+            gifts: "Дар вдохновлять и мотивировать на изменения.",
+            lessons: "Учитесь мягкости и терпению."
+        },
+        2: {
+            path: "Гармония и единство. Ваша миссия — объединять людей через сострадание.",
+            gifts: "Дар исцеления через эмпатию.",
+            lessons: "Развивайте уверенность в своих интуитивных решениях."
+        },
+        3: {
+            path: "Творчество как духовный путь. Вы выражаете божественное через искусство и коммуникацию.",
+            gifts: "Дар передавать истину через метафоры и символы.",
+            lessons: "Концентрируйтесь на глубине, а не только на форме."
+        },
+        // ... (аналогично для чисел 4-9, 11, 22, 33)
+        5: {
+            path: "Дух свободы и исследований. Вы — проводник новых духовных идей.",
+            gifts: "Дар адаптировать мудрость под современные реалии.",
+            lessons: "Учитесь дисциплине без потери гибкости."
+        }
+    };
+
+    const data = spiritualData[lifePathNumber] || spiritualData[1]; // Fallback
+
+    document.getElementById("spiritual-path").innerHTML = `<p>${data.path}</p>`;
+    document.getElementById("spiritual-gifts").innerHTML = `<p>${data.gifts}</p>`;
+    document.getElementById("spiritual-lessons").innerHTML = `<p>${data.lessons}</p>`;
+    document.getElementById("spiritual-practices").innerHTML =
+        `<p>Практики: ${lifePathNumber === 1 ? "Медитация силы" :
+                      lifePathNumber === 2 ? "Парные медитации" :
+                      "Творческие визуализации"}.</p>`;
+
+    document.getElementById("spirituality-result").classList.add("active");
+}
+    </script>
+</body>
+</html>
