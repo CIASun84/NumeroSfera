@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumeroSfera — Нумерология онлайн</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #fdf6f0; color: #333; }
+    header { background: #050505; color: white; padding: 1rem; text-align: center; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; background: #acabad; }
+    nav button { background: none; border: none; padding: 1rem; cursor: pointer; font-size: 1rem; color: #333; }
+    nav button:hover { background: #111111; color: white; }
+    section { display: none; padding: 2rem; }
+    section.active { display: block; }
+    input[type="text"], input[type="date"] { padding: 0.5rem; font-size: 1rem; }
+    .result { margin-top: 1rem; font-weight: bold; }
+    .site-logo { height: 150px; width: 250px; margin-right: 250px; }
+    .logo-container { display: flex;
+            justify-content: left; /* выравнивание вправо */
+            align-items: center ;
+            padding: 5px; }
+  </style>
+</head>
+<body>
+<header>
+  <header class="main-header"></header>
+  <div class="logo-container">
+    <img src="logotip.png" alt="Nummagie Logo" class="site-logo">
+  <h1>Раскройте тайны чисел вашей жизни</h1></div>
+<div class="subtitle">Нумерология - древняя наука, которая поможет вам понять свой жизненный путь, предназначение и скрытые таланты через силу чисел.</div>
+</header>
+<nav>
+  <button onclick="showTab('path')">Число жизненного пути</button>
+  <button onclick="showTab('destiny')">Число судьбы (имени)</button>
+  <button onclick="showTab('relationships')">Совместимость чисел</button>
+  <button onclick="showTab('dates')">Удачные даты</button>
+  <button onclick="showTab('cycles')">Жизненные циклы</button>
+  <button onclick="showTab('names')">Выбор имени</button>
+  <button onclick="showTab('career')">Карьера</button>
+  <button onclick="showTab('health')">Здоровье</button>
+  <button onclick="showTab('spirituality')">Духовность</button>
+</nav>
+
+<section id="path" class="active">
+  <h2>Число жизненного пути</h2>
+  <label>Введите дату рождения: <input type="date" id="birthdate"></label>
+  <button onclick="calculateLifePath()">Рассчитать</button>
+  <div class="result" id="pathResult"></div>
+  <div class="result" id="pathInterpretation"></div>
+</section>
+
+<section id="destiny">
+  <h2>Число судьбы (имени)</h2>
+  <label>Введите имя: <input type="text" id="nameInput"></label>
+  <button onclick="calculateDestiny()">Рассчитать</button>
+  <div class="result" id="destinyResult"></div>
+</section>
+
+<section id="relationships">
+  <h2>Взаимосвязь чисел в отношениях</h2>
+  <p>Введите даты рождения двух людей:</p>
+  <label>Дата свою дату рождения: <input type="date" id="relBirth1"></label><br>
+  <label>Введите дату рождения партнёра: <input type="date" id="partnerBirthdate"></label><br>
+  <button onclick="analyzeRelationships()">Проверить совместимость</button>
+  <div class="result" id="relationshipsResult"></div>
+</section>
+
+<section id="dates">
+  <h2>Выбор удачных дат</h2>
+  <label>Введите желаемую дату события: <input type="date" id="eventDate"></label>
+  <button onclick="analyzeEventDate()">Проверить</button>
+  <div class="result" id="eventResult"></div>
+</section>
+
+<section id="cycles">
+  <h2>Понимание жизненных циклов</h2>
+  <label>Введите дату рождения: <input type="date" id="cycleBirthdate"></label>
+  <button onclick="analyzeCycles()">Анализировать</button>
+  <div class="result" id="cycleResult"></div>
+</section>
+
+<section id="names">
+  <h2>Выбор имени или названия</h2>
+  <label>Введите вариант имени/названия: <input type="text" id="brandName"></label>
+  <button onclick="analyzeNameNumber()">Рассчитать</button>
+  <div class="result" id="brandResult"></div>
+</section>
+
+<section id="career">
+  <h2>Карьерное направление</h2>
+  <p>Этот раздел поможет вам определить оптимальное направление карьеры на основе вашего числа судьбы.</p>
+<p>Введите дату рождения и нажмите "Анализировать", чтобы получить рекомендацию.</p>
+<label>Дата рождения: <input type="date" id="careerBirthdate"></label>
+<button onclick="analyzeCareer()">Анализировать</button>
+<div class="result" id="careerResult"></div>
+</section>
+
+<section id="health">
+  <h2>Анализ здоровья</h2>
+  <p>Введите вашу дату рождения для анализа здоровья на основе числа жизненного пути.</p>
+ <label>Дата рождения: <input type="date" id="healthBirthdate"></label>
+ <button onclick="analyzeHealth()">Анализировать</button>
+ <div class="result" id="healthResult"></div>
+</section>
+
+<section id="spirituality">
+  <h2>Развитие духовности</h2>
+  <p>Введите дату рождения и получите рекомендации по духовному развитию.</p>
+ <label>Дата рождения: <input type="date" id="spiritBirthdate"></label>
+ <button onclick="analyzeSpirituality()">Анализировать</button>
+ <div class="result" id="spiritualityResult"></div>
+</section>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function reduceToSingleDigit(n) {
+  while (n > 9 && n !== 11 && n !== 22 && n !== 33) {
+    n = n.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+  }
+  return n;
+}
+
+function calculateLifePath() {
+  const date = document.getElementById('birthdate').value;
+  if (!date) return;
+  const digits = date.replaceAll('-', '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  let lifePath = reduceToSingleDigit(sum);
+  document.getElementById('pathResult').innerText = 'Число жизненного пути: ' + lifePath;
+  document.getElementById('pathInterpretation').innerText = interpretLifePath(lifePath);
+}
+
+function interpretLifePath(num) {
+  const meanings = {
+    1: `Лидер, независимость, амбиции.
+Ключевые черты: Сила воли, амбициозность, целеустремлённость.
+- Положительные качества: Лидерство, оригинальность, независимость.
+- Слабые стороны: Упрямство, эгоизм, нетерпимость к критике.
+- Совет: Учитесь работать в команде и учитывать мнение других.`,
+    2: `Дипломат, гармония, чувствительность.
+Ключевые черты: Чувствительность, интуиция, тактичность.
+- Положительные качества: Дипломатия, склонность к сотрудничеству, умение выстраивать гармоничные отношения.
+- Слабые стороны: Зависимость от чужого мнения, нерешительность, излишняя эмоциональность.
+- Совет: Старайтесь сохранять баланс между своими желаниями и потребностями окружающих.`,
+    3: `Творчество, общительность, оптимизм.
+- Ключевые черты: Оптимизм, яркость, харизма.
+- Положительные качества: Творческое самовыражение, энтузиазм, отличные коммуникативные навыки.
+- Слабые стороны: Непостоянство, поверхностность, склонность к рассеиванию энергии.
+`,
+    4: `Практичность, стабильность, трудолюбие.
+- Ключевые черты: Организованность, дисциплина, трудолюбие.
+- Положительные качества: Надёжность, стабильность, ответственность.
+- Слабые стороны: Излишний консерватизм, страх перемен, упрямство.
+- Совет: Развивайте гибкость мышления и научитесь адаптироваться к изменениям.`,
+    5: `Свобода, приключения, перемены.
+- Ключевые черты: Динамичность, любознательность, авантюризм.
+- Положительные качества: Любовь к свободе, открытость к новому, страсть к приключениям.
+- Слабые стороны: Непостоянство, отсутствие дисциплины, стремление к излишнему риску.
+- Совет: Укрепляйте чувство ответственности и находите баланс между свободой и обязательствами.`,
+    6: `Гармония, ответственность, забота.
+- Ключевые черты: Семейные ценности, любовь, сочувствие.
+- Положительные качества: Забота о близких, стремление к гармонии, ответственность в отношениях.
+- Слабые стороны: Чрезмерное самопожертвование, склонность к излишней критике.
+- Совет: Заботьтесь о себе, не забывая о личных потребностях.`,
+    7: `Анализ, духовность, уединение.
+- Ключевые черты: Интроспекция, мудрость, стремление к знанию.
+- Положительные качества: Аналитический ум, интуиция, глубокое мышление.
+- Слабые стороны: Склонность к изоляции, чрезмерная критичность, медлительность в принятии решений.
+- Совет: Научитесь сочетать внутреннюю работу с внешними действиями.
+`,
+    8: `Сила, успех, материальное благополучие.
+- Ключевые черты: Целеустремлённость, амбициозность, финансовая грамотность.
+- Положительные качества: Способность управлять ресурсами, достижение материального успеха, лидерские качества.
+- Слабые стороны: Алчность, излишняя требовательность, склонность к авторитаризму.
+- Совет: Используйте своё влияние для пользы окружающих, а не только ради личной выгоды.`,
+    9: `Сострадание, гуманизм, альтруизм.
+- Ключевые черты: Щедрость, мудрость, гуманность.
+- Положительные качества: Сострадание, щедрость, умение видеть общую картину.
+- Слабые стороны: Сложности с практическими аспектами, излишняя самокритика.
+- Совет: Не забывайте о своих нуждах, помогая другим, и стремитесь к балансу.`,
+    11: `Мастер-интуиция
+- Ключевые черты:
+Духовность, интуиция, идеализм.
+Является числом вдохновения и эмоциональной глубины.
+- Положительные качества:
+Сильная интуиция и внутреннее чутьё.
+Харизматичность, способность вдохновлять других.
+Глубокая связь с духовной сферой.
+- Слабые стороны:
+Склонность к тревожности из-за чрезмерной чувствительности.
+Страх не оправдать ожидания окружающих.
+Часто сомневаются в своих силах.
+- Совет:
+Превратите свои страхи в источники силы. Научитесь балансировать между духовным развитием и реальными действиями.
+Интуиция, вдохновение, учительство.`,
+    22: `Мастер-строитель
+- Ключевые черты:
+Амбиции, практичность, способность воплощать масштабные идеи.
+Символизирует созидание и ответственность.
+- Положительные качества:
+Мощная энергия, позволяющая создавать что-то долговечное.
+Умение воплощать мечты в реальность.
+Лидерство и управление крупными проектами.
+- Слабые стороны:
+Стремление к контролю, может перерасти в авторитарность.
+Риск зацикливания на материальной стороне жизни.
+Высокие требования к себе и окружающим.
+- Совет:
+Сохраняйте гармонию между духовными и материальными целями. Используйте свои способности для создания пользы не только для себя, но и для общества`,
+    33: `Мастер-учитель
+- Ключевые черты:
+Безусловная любовь, самопожертвование, гуманизм.
+Это число духовных лидеров и учителей.
+- Положительные качества:
+Щедрость, готовность помогать окружающим.
+Высокая эмпатия, чувство сострадания.
+Способность вдохновлять других своим примером.
+- Слабые стороны:
+Сложность нахождения баланса между личными и общественными потребностями.
+Чрезмерное самопожертвование, приводящее к истощению.
+Риск игнорировать свои желания и потребности.
+- Совет:
+Научитесь заботиться о себе, чтобы поддерживать свою энергию для помощи другим. Ваше предназначение — быть светом для окружающих, но не в ущерб себе.`
+  };
+  return meanings[num] || '';
+}
+
+function calculateDestiny() {
+  const cyrillicMap = {
+  'А': 1, 'Б': 2, 'В': 3, 'Г': 4, 'Д': 5, 'Е': 6, 'Ё': 6, 'Ж': 7, 'З': 8, 'И': 9,
+  'Й': 1, 'К': 2, 'Л': 3, 'М': 4, 'Н': 5, 'О': 6, 'П': 7, 'Р': 8, 'С': 9,
+  'Т': 1, 'У': 2, 'Ф': 3, 'Х': 4, 'Ц': 5, 'Ч': 6, 'Ш': 7, 'Щ': 8, 'Ъ': 9,
+  'Ы': 1, 'Ь': 2, 'Э': 3, 'Ю': 4, 'Я': 5
+};
+  const latinMap = {
+  'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9,
+  'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'O': 6, 'P': 7, 'Q': 8, 'R': 9,
+  'S': 1, 'T': 2, 'U': 3, 'V': 4, 'W': 5, 'X': 6, 'Y': 7, 'Z': 8
+};
+
+
+function calculateDestiny(name) {
+  name = name.toUpperCase().replace(/[^А-ЯЁA-Z]/g, ''); // оставить только буквы
+
+  let total = 0;
+
+  for (let char of name) {
+    if (cyrillicMap[char]) {
+      total += cyrillicMap[char];
+    } else if (latinMap[char]) {
+      total += latinMap[char];
+    }
+  }
+
+  return reduceToSingleDigit(total);
+}
+
+        // Функция для приведения числа к однозначному, кроме 11 и 22
+        function reduceToOneDigit(num) {
+  while (num > 9) {
+    num = num.toString().split('').reduce((sum, digit) => sum + Number(digit), 0);
+  }
+  return num;
+}
+
+        const destinyNumber = reduceNumber(sum);
+        document.getElementById('destinyResult').innerText = `Ваше число судьбы: ${destinyNumber}`;
+
+}
+
+/*function analyzeCompatibility() {
+  const date1 = document.getElementById('birthdate').value;
+  const date2 = document.getElementById('partnerBirthdate').value;
+  if (!date1 || !date2) return;
+  const sum1 = date1.replaceAll('-', '').split('').reduce((a, b) => a + +b, 0);
+  const sum2 = date2.replaceAll('-', '').split('').reduce((a, b) => a + +b, 0);
+  const lp1 = reduceToSingleDigit(sum1);
+  const lp2 = reduceToSingleDigit(sum2);
+  const diff = Math.abs(lp1 - lp2);
+  let msg = `Ваше число: ${lp1}, Партнёра: ${lp2}. `;
+  if (diff === 0) msg += 'Вы отлично понимаете друг друга.';
+  else if (diff <= 2) msg += 'Хорошая совместимость.';
+  else msg += 'Придётся работать над отношениями.';
+  document.getElementById('compatibilityResult').innerText = msg;
+}*/
+function analyzeRelationships() {
+      const date1 = document.getElementById("relBirth1").value;
+      const date2 = document.getElementById("partnerBirthdate").value;
+      if (!date1 || !date2) return;
+      const path1 = reduceToSingleDigit(date1.replaceAll("-", "").split("").map(Number).reduce((a, b) => a + b, 0));
+      const path2 = reduceToSingleDigit(date2.replaceAll("-", "").split("").map(Number).reduce((a, b) => a + b, 0));
+
+      let compatibility = "Нейтральная совместимость.";
+      if (path1 === path2) {
+        compatibility = "Очень высокая совместимость — одинаковые жизненные цели.";
+      } else if (Math.abs(path1 - path2) <= 2) {
+        compatibility = "Хорошая совместимость при усилиях и понимании.";
+      } else {
+        compatibility = "Сложная совместимость — потребуется работа над отношениями.";
+      }
+
+      document.getElementById("relationshipsResult").innerText =
+        `Ваше число пути: ${path1}, партнёра: ${path2}. ${compatibility}`;
+    }
+function analyzeEventDate() {
+  const date = document.getElementById('eventDate').value;
+  if (!date) return;
+  const sum = date.replaceAll('-', '').split('').reduce((a, b) => a + +b, 0);
+  const number = reduceToSingleDigit(sum);
+  const meanings = {
+    1: 'Подходит для новых начинаний.',
+    2: 'Лучше всего для переговоров и партнёрства.',
+    3: 'Идеально для творческих проектов.',
+    4: 'Подходит для рутинной работы и порядка.',
+    5: 'Время перемен и путешествий.',
+    6: 'Хорошо для семейных событий.',
+    7: 'День для размышлений и уединения.',
+    8: 'Подходит для финансов и бизнеса.',
+    9: 'Завершение, подведение итогов.'
+  };
+  document.getElementById('eventResult').innerText = `Число дня: ${number}. ${meanings[number]}`;
+}
+
+function analyzeCycles() {
+  const date = document.getElementById('cycleBirthdate').value;
+  if (!date) return;
+  const year = new Date().getFullYear();
+  const birthDay = new Date(date).getDate();
+  const birthMonth = new Date(date).getMonth() + 1;
+  const sum = reduceToSingleDigit(birthDay + birthMonth + reduceToSingleDigit(year));
+  document.getElementById('cycleResult').innerText = `Ваш текущий персональный год: ${sum}`;
+}
+
+function analyzeNameNumber() {
+  const name = document.getElementById('brandName').value.toUpperCase().replace(/[^А-ЯA-Z]/g, '');
+  const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+  let sum = 0;
+  for (let ch of name) {
+    const index = alphabet.indexOf(ch) + 1;
+    sum += index > 0 ? index : 0;
+  }
+  const number = reduceToSingleDigit(sum);
+  document.getElementById('brandResult').innerText = `Число имени/названия: ${number}`;
+}
+
+function analyzeCareer() {
+  const date = document.getElementById('careerBirthdate').value;
+  if (!date) return;
+  const digits = date.replaceAll('-', '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  let number = reduceToSingleDigit(sum);
+  const careers = {
+    1: "Лидерские профессии: управление, предпринимательство.",
+    2: "Работа в партнёрстве, дипломатия, медиация.",
+    3: "Креативные профессии: артист, писатель, дизайнер.",
+    4: "Технические и стабильные профессии: инженер, строитель.",
+    5: "Путешествия, маркетинг, PR, журналистика.",
+    6: "Социальная сфера, медицина, преподавание.",
+    7: "Наука, аналитика, IT, философия.",
+    8: "Бизнес, финансы, юриспруденция.",
+    9: "Благотворительность, искусство, медицина."
+  };
+  document.getElementById('careerResult').innerText = `Рекомендуемое направление: ${careers[number] || "Неизвестно"}`;
+}
+
+function analyzeHealth() {
+  const date = document.getElementById('healthBirthdate').value;
+  if (!date) return;
+  const digits = date.replaceAll('-', '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  let number = reduceToSingleDigit(sum);
+  const healthTips = {
+    1: "Уделяйте внимание сердечно-сосудистой системе.",
+    2: "Поддерживайте эмоциональный баланс и избегайте стресса.",
+    3: "Следите за пищеварением и соблюдайте режим питания.",
+    4: "Остерегайтесь перенапряжения и уделяйте время отдыху.",
+    5: "Следите за дыхательной системой и избегайте перегрузок.",
+    6: "Контролируйте уровень сахара и заботьтесь о печени.",
+    7: "Сохраняйте психическое здоровье, важно уединение и покой.",
+    8: "Поддерживайте физическую форму, склонность к перенапряжению.",
+    9: "Важно соблюдать режим сна и контролировать артериальное давление."
+  };
+  document.getElementById('healthResult').innerText = `Совет: ${healthTips[number] || ""}`;
+}
+
+function analyzeSpirituality() {
+  const date = document.getElementById('spiritBirthdate').value;
+  if (!date) return;
+  const digits = date.replaceAll('-', '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  let number = reduceToSingleDigit(sum);
+  const guidance = {
+    1: "Учитесь делиться силой и вдохновлять других.",
+    2: "Развивайте эмпатию и чувствительность.",
+    3: "Делитесь радостью и творчеством.",
+    4: "Работайте над терпением и доверием к Вселенной.",
+    5: "Открывайтесь новым опытам и людям.",
+    6: "Развивайте безусловную любовь и заботу.",
+    7: "Углубляйтесь в духовные практики и медитации.",
+    8: "Учитесь справляться с материальными задачами без привязанности.",
+    9: "Служите другим и ищите смысл за пределами себя."
+  };
+  document.getElementById('spiritualityResult').innerText = `Рекомендация: ${guidance[number] || ""}`;
+}
+</script>
+</body>
+</html>
